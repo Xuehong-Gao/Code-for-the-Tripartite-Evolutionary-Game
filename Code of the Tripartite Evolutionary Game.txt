@@ -1,0 +1,83 @@
+Code for Tripartite Evolutionary Game
+
+function dydt=recall(t,y,n1,n2,R0,R1,R2,R3,R4,C1,C2,C3,C4,C5,C6,C7,C8,S1)
+dydt=zeros(3,1);
+dydt(1)=y(1)*(1-y(1))*(-S1*y(3)+R1-C1+R2);
+dydt(2)=y(2)*(1-y(2))*((n1*R0-n1*C4-C3-R0)*y(3)-(n2*R0-n2*C4-C3-
+R0)*y(1)*y(3)+R3+R4);
+dydt(3)=y(3)*(1-y(3))*(S1*y(1)+C8*y(1)*(y(2)-1)+C3*y(2)-C7*(1-y(1))*(1-y(2))+C6);
+end
+
+function dydt=recall_sp(t,y,n1,n2,R0,R1,R2,R3,R4,C1,C2,C3,C4,C5,C6,C7,C8,S1,F)
+dydt=zeros(3,1);
+dydt(1)=y(1)*(1-y(1))*(-S1*y(3)+R1-C1+R2+F*(1-y(2)));
+dydt(2)=y(2)*(1-y(2))*((n1*R0-n1*C4-C3-R0)*y(3)-(n2*R0-n2*C4-C3-
+R0)*y(1)*y(3)+R3+R4+F*y(1));
+dydt(3)=y(3)*(1-y(3))*(S1*y(1)+C8*y(1)*(y(2)-1)+C3*y(2)-C7*(1-y(1))*(1-y(2))+C6);
+end
+
+function dydt=recall_dp1(t,y,n1,n2,R0,R1,R2,R3,R4,C1,C2,C3,C4,C5,C6,C7,C8,S1,F)
+dydt=zeros(3,1);
+dydt(1)=y(1)*(1-y(1))*(-S1*y(3)+R1-C1+R2+(0.3*t+F)*(1-y(2)));
+dydt(2)=y(2)*(1-y(2))*((n1*R0-n1*C4-C3-R0)*y(3)-(n2*R0-n2*C4-C3-
+R0)*y(1)*y(3)+R3+R4+(0.3*t+F)*y(1));
+dydt(3)=y(3)*(1-y(3))*(S1*y(1)+C8*y(1)*(y(2)-1)+C3*y(2)-C7*(1-y(1))*(1-y(2))+C6);
+end
+
+figure(1)
+clc;clear;
+n1=0.3,n2=0.7,R0=20,R1=2,R2=6,R3=8,R4=12,C1=2,C2=20,C3=2,C4=10,C5=6,C6=10
+,C7=8,C8=5,S1=4;
+set(0,'defaultfigurecolor','w')
+[t,y]=ode45(@(t,y) recall(t,y,n1,n2,R0,R1,R2,R3,R4,C1,C2,C3,C4,C5,C6,C7,C8,S1),[0
+100],[0.5 0.5 0.5]);
+maker_idx=1:10:100
+plot(y(:,1),'--*','color',[246 111
+105]/255,'linewidth',1,'markersize',4,'MarkerIndices',maker_idx);
+hold on
+clc;clear;
+n1=0.3,n2=0.7,R0=20,R1=2,R2=6,R3=8,R4=12,C1=4,C2=20,C3=2,C4=10,C5=6,C6=10
+,C7=8,C8=5,S1=4;
+set(0,'defaultfigurecolor','w')
+[t,y]=ode45(@(t,y) recall(t,y,n1,n2,R0,R1,R2,R3,R4,C1,C2,C3,C4,C5,C6,C7,C8,S1),[0
+100],[0.5 0.5 0.5]);
+maker_idx=1:10:100
+plot(y(:,1),'--<','color',[122 027
+109]/255,'linewidth',1,'markersize',4,'MarkerIndices',maker_idx);
+hold on
+clc;clear;
+n1=0.3,n2=0.7,R0=20,R1=2,R2=6,R3=8,R4=12,C1=6,C2=20,C3=2,C4=10,C5=6,C6=10
+,C7=8,C8=5,S1=4;
+set(0,'defaultfigurecolor','w')
+[t,y]=ode45(@(t,y) recall(t,y,n1,n2,R0,R1,R2,R3,R4,C1,C2,C3,C4,C5,C6,C7,C8,S1),[0
+100],[0.5 0.5 0.5]);
+maker_idx=1:10:100
+plot(y(:,1),'-->','color',[021 151
+165]/255,'linewidth',1,'markersize',4,'MarkerIndices',maker_idx);
+hold on
+clc;clear;
+n1=0.3,n2=0.7,R0=20,R1=2,R2=6,R3=8,R4=12,C1=8,C2=20,C3=2,C4=10,C5=6,C6=10
+,C7=8,C8=5,S1=4;
+set(0,'defaultfigurecolor','w')
+[t,y]=ode45(@(t,y) recall(t,y,n1,n2,R0,R1,R2,R3,R4,C1,C2,C3,C4,C5,C6,C7,C8,S1),[0
+100],[0.5 0.5 0.5]);
+maker_idx=1:10:100
+plot(y(:,1),'--+','color',[131 064
+038]/255,'linewidth',1,'markersize',4,'MarkerIndices',maker_idx);
+hold on
+clc;clear;
+n1=0.3,n2=0.7,R0=20,R1=2,R2=6,R3=8,R4=12,C1=10,C2=20,C3=2,C4=10,C5=6,C6=1
+0,C7=8,C8=5,S1=4;
+set(0,'defaultfigurecolor','w')
+[t,y]=ode45(@(t,y) recall(t,y,n1,n2,R0,R1,R2,R3,R4,C1,C2,C3,C4,C5,C6,C7,C8,S1),[0
+100],[0.5 0.5 0.5]);
+maker_idx=1:10:100
+plot(y(:,1),'--d','color',[255 194
+075]/255,'linewidth',1,'markersize',4,'MarkerIndices',maker_idx);
+hold on
+set(gca,'XTick',[0:10:100],'YTick',[0:0.1:1],'fontname','Times New Roman')
+axis([0 100 0 1])
+xlabel('Time','fontname','Times New Roman');
+ylabel('x','fontname','Times New Roman');
+legend('C1=2','C1=4','C1=6','C1=8','C1=10','fontname','Times New Roman');
+n');
